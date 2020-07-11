@@ -34,7 +34,11 @@
 % == 字体 ==
 \usepackage{xeCJK,fontspec}
 % 设置英文宋体、黑体、等宽字体
-\setmainfont[AutoFakeSlant=0.2]{Source Han Serif SC}
+\setmainfont[
+    AutoFakeSlant=0.2,
+    SmallCapsFont=TeX Gyre Termes,
+    SmallCapsFeatures={Letters=SmallCaps}
+]{Source Han Serif SC}
 \setsansfont[AutoFakeSlant=0.2]{Source Han Sans SC}
 \setmonofont{Sarasa Mono SC}
 % 设置中文宋体、黑体、等宽字体
@@ -99,6 +103,9 @@
 }
 % Matlab
 \usepackage{matlab-prettifier}
+% 伪代码
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
 
 % == 源代码和结果展示 ==
 \usepackage{showexpl}
@@ -240,23 +247,33 @@ The quick fox jumps over the lazy dog. % 正文
 \setmainfont[AutoFakeSlant=0.2, AutoFakeBold=1.5]{Source Han Serif SC}
 \end{lstlisting}
 
+设置小写大写字母替代
+
+\begin{lstlisting}[frame=single,style=customlatex]
+\setmainfont[
+    SmallCapsFont=TeX Gyre Termes,
+    SmallCapsFeatures={Letters=SmallCaps}
+]{Source Han Serif SC}
+\end{lstlisting}
+
+
 \subsubsection{指定字形}
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|l|l|l|} \hline
     命令 & 等价命令 & 效果 \\\hline
-    \verb|\textnormal{...}| & \verb|{\normalfont ...}| & {\normalfont sample text 示例文本} \\\hline
-    \verb|\emph{...}|   & \verb|{\em ...}|       & {\em sample text 示例文本} \\\hline
-    \verb|\textrm{...}| & \verb|{\rmfamily ...}| & {\rmfamily sample text 示例文本} \\\hline
-    \verb|\textsf{...}| & \verb|{\sffamily ...}| & {\sffamily sample text 示例文本} \\\hline
-    \verb|\texttt{...}| & \verb|{\ttfamily ...}| & {\ttfamily sample text 示例文本} \\\hline
-    \verb|\textup{...}| & \verb|{\upshape ...}|  & {\upshape sample text 示例文本} \\\hline
-    \verb|\textit{...}| & \verb|{\itshape ...}|  & {\itshape sample text 示例文本} \\\hline
-    \verb|\textsl{...}| & \verb|{\slshape ...}|  & {\slshape sample text 示例文本} \\\hline
-    \verb|\textsc{...}| & \verb|{\scshape ...}|  & 不支持 \\\hline
-    \verb|\textbf{...}| & \verb|{\bfseries ...}| & {\bfseries sample text 示例文本} \\\hline
-    \verb|\textmd{...}| & \verb|{\mdseries ...}| & {\mdseries sample text 示例文本} \\\hline
+    \verb|\textnormal{...}| & \verb|{\normalfont ...}| & {\normalfont Sample Text 示例文本} \\\hline
+    \verb|\emph{...}|   & \verb|{\em ...}|       & {\em Sample Text 示例文本} \\\hline
+    \verb|\textrm{...}| & \verb|{\rmfamily ...}| & {\rmfamily Sample Text 示例文本} \\\hline
+    \verb|\textsf{...}| & \verb|{\sffamily ...}| & {\sffamily Sample Text 示例文本} \\\hline
+    \verb|\texttt{...}| & \verb|{\ttfamily ...}| & {\ttfamily Sample Text 示例文本} \\\hline
+    \verb|\textup{...}| & \verb|{\upshape ...}|  & {\upshape Sample Text 示例文本} \\\hline
+    \verb|\textit{...}| & \verb|{\itshape ...}|  & {\itshape Sample Text 示例文本} \\\hline
+    \verb|\textsl{...}| & \verb|{\slshape ...}|  & {\slshape Sample Text 示例文本} \\\hline
+    \verb|\textsc{...}| & \verb|{\scshape ...}|  & {\scshape Sample Text} \\\hline
+    \verb|\textbf{...}| & \verb|{\bfseries ...}| & {\bfseries Sample Text 示例文本} \\\hline
+    \verb|\textmd{...}| & \verb|{\mdseries ...}| & {\mdseries Sample Text 示例文本} \\\hline
     \verb|\textlf{...}| & \verb|{\lfseries ...}| & 不支持 \\\hline
     \end{tabular}
 \end{table}
@@ -267,16 +284,16 @@ The quick fox jumps over the lazy dog. % 正文
     \centering
     \begin{tabular}{|l|l|} \hline
     命令 & 效果 \\\hline
-    \verb|\tiny|         &\tiny{sample text 示例文本}         \\\hline
-    \verb|\scriptsize|   &\scriptsize{sample text 示例文本}   \\\hline
-    \verb|\footnotesize| &\footnotesize{sample text 示例文本} \\\hline
-    \verb|\small|        &\small{sample text 示例文本}        \\\hline
-    \verb|\normalsize|   &\normalsize{sample text 示例文本}   \\\hline
-    \verb|\large|        &\large{sample text 示例文本}        \\\hline
-    \verb|\Large|        &\Large{sample text 示例文本}        \\\hline
-    \verb|\LARGE|        &\LARGE{sample text 示例文本}        \\\hline
-    \verb|\huge|         &\huge{sample text 示例文本}         \\\hline
-    \verb|\Huge|         &\Huge{sample text 示例文本}         \\\hline
+    \verb|\tiny|         &\tiny{Sample Text 示例文本}         \\\hline
+    \verb|\scriptsize|   &\scriptsize{Sample Text 示例文本}   \\\hline
+    \verb|\footnotesize| &\footnotesize{Sample Text 示例文本} \\\hline
+    \verb|\small|        &\small{Sample Text 示例文本}        \\\hline
+    \verb|\normalsize|   &\normalsize{Sample Text 示例文本}   \\\hline
+    \verb|\large|        &\large{Sample Text 示例文本}        \\\hline
+    \verb|\Large|        &\Large{Sample Text 示例文本}        \\\hline
+    \verb|\LARGE|        &\LARGE{Sample Text 示例文本}        \\\hline
+    \verb|\huge|         &\huge{Sample Text 示例文本}         \\\hline
+    \verb|\Huge|         &\Huge{Sample Text 示例文本}         \\\hline
     \end{tabular}
 \end{table}
 
@@ -447,6 +464,22 @@ Foo\parencite{Foo_Bar_2020}
 \[\begin{aligned}
 y&=(x+1)(x-1)\\
 &=x^2-1
+\end{aligned}\]
+\end{LTXexample}
+
+\paragraph{微积分}\hspace{1pt}
+
+\begin{LTXexample}[pos=t,style=customlatex,style=linewrap]
+\newcommand{\dr}{\mathrm{d}r}
+\newcommand{\dth}{\mathrm{d}\theta}
+\newcommand{\dph}{\mathrm{d}\varphi}
+\newcommand{\dzz}{\mathrm{d}z}
+\[\begin{aligned}
+\iiint_{\Omega_2}\sqrt{z}\mathrm{d}v&=\iiint_{\Omega_2} \sqrt{r\cos\varphi}\cdot r^2\sin\varphi\dr\dth\dph\\
+&=\int_0^{\frac{\pi}4}\dph\int_0^{2\pi}\dth\int_0^1r^{\frac52}\sin\varphi\sqrt{\cos\varphi}\dr \\
+&=-\int_0^{\frac{\pi}4}\sqrt{\cos\varphi}\mathrm{d}\cos\varphi\cdot2\pi\cdot\frac27\\
+&=-\frac23(\cos\varphi)^{\frac32}\Bigg|_0^{\frac{\pi}4}\cdot\frac{4\pi}7\\
+&=\frac{4\pi}{21}(2-\sqrt[4]{2})\\
 \end{aligned}\]
 \end{LTXexample}
 
@@ -683,6 +716,32 @@ showstringspaces=false%
 \begin{lstlisting}[style=terminal]
 C:\>
 \end{lstlisting}
+\end{LTXexample}
+
+\paragraph{伪代码}\hspace{1pt}
+
+\begin{LTXexample}[style=customlatex,style=linewrap]
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode} % 导言区
+% \begin{algorithm} 
+\begin{algorithmic}
+\Procedure{Select Task}{}
+\State \ForAll{client $i$ in $Q$}
+\If{$s_i$ is False}
+\ForAll{task $t$ $(t_1,t_2,\cdots,t_k)$ in $Q_i$}
+\If{All $a_{t_{k_0}}$ is True}
+\State {$s_i \gets$ True}
+\State {All $a_{t_{k_0}} \gets$ False}
+\State {$Q_i$.pop($t$)}
+\State {Tell client $i$ that these $k$ resources are available}
+\EndIf
+\EndFor
+\EndIf
+\EndFor
+\State Delay for a while
+\EndProcedure
+\end{algorithmic}
+% \end{algorithm}
 \end{LTXexample}
 
 \section{Tikz\ \tagPKG}
