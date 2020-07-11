@@ -321,6 +321,14 @@ The quick fox jumps over the lazy dog. % 正文
 \end{bmatrix}\]
 \end{LTXexample}
 
+\paragraph{等式}\hspace{1pt}
+
+\begin{LTXexample}[style=customlatex]
+\begin{equation}
+    T_{0}(k)=\frac{1}{2} T_{0}(k-1)
+\end{equation}
+\end{LTXexample}
+
 \paragraph{连等式}\hspace{1pt}
 
 \begin{LTXexample}[style=customlatex]
@@ -610,6 +618,41 @@ basewidth=0.5em,
 \gatelink    {or4.output}{and.input 4}
 \gatelink[1] {or5.output}{and.input 5}
 \gatelabel*{and}{$H$}
+\end{paramlines}
+\end{tikzpicture}
+\end{center}
+\end{LTXexample}
+
+
+\begin{LTXexample}[pos=t,style=customlatex,style=linewrap]
+\begin{center}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,shapes} % 导言区
+\begin{tikzpicture}
+\begin{paramlines}[5.5][1]
+\plparamlabel{Q1}{$Q_1$}
+\plparamlabel{Q0}{$Q_0$}
+\plparamboth{X}
+\node [draw, shape=rectangle, minimum height=2cm, minimum width=1.8cm] at (0.5,1){};
+\node at (0,1.7) {$S_1$};
+\node at (1,1.7) {$S_0$};
+\node (clk) [left] at (-1,1) {$Clk$};
+\draw (clk) -- (-0.4,1)  --+ (0,0.2) --+ (0.35,0) --+(0,-0.2);
+% gates
+\def\andbasex{5}
+\def\orbasex{5}
+\node [nand gate US,logic gate inputs=nnn,draw,scale=2] at (\orbasex,-3) (nand1) {};
+\node [and gate US,draw,scale=2] at (\andbasex,-5) (and1) {};
+\pllink{X}{and1.input 1}
+\pllink{Q1}{and1.input 2}
+\pllink{X’}{nand1.input 1}
+\pllink{Q1}{nand1.input 2}
+\pllink{Q0}{nand1.input 3}
+\gatelabel*{and1}{$Z$}
+\plsetbasex{X}
+\draw (nand1.output) --++(0.5,0) |- (1,2.5) -- (1,2);
+\draw (\basex,-4) --++(5.5,0) |- (0,3) -- (0,2);
+\fill (\basex,-4) circle (2pt);
 \end{paramlines}
 \end{tikzpicture}
 \end{center}
