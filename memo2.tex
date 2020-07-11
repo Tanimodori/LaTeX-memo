@@ -315,6 +315,57 @@ The quick fox jumps over the lazy dog. % 正文
 \noindent\rule{\textwidth}{0.4pt}
 \end{LTXexample}
 
+\subsection{自定义封面}
+
+\begin{LTXexample}[style=customlatex,style=linewrap]
+\begin{document}
+    \begin{titlepage}
+        \sffamily
+        \centering
+        \vspace{1cm}
+        {\Large 某科学的超级学校\par}
+        \vspace{0.8cm}
+        {\Huge 某科学的实验报告\par}
+        \vspace{0.4cm}
+        \noindent\rule{\textwidth}{0.4pt}
+        {\bfseries\Large 
+        实验一：某科学的超级实验\par}
+        \vspace{0.4cm}
+        {Tanimodori}
+        \vfill
+        {\large \today}
+        \vspace{1.2cm}
+    \end{titlepage}
+\end{document}
+\end{LTXexample}
+
+
+\subsection{目录}
+\paragraph{通常结构}\hspace{1pt}
+
+\begin{lstlisting}[style=customlatex, style=linewrap, frame=single]
+\renewcommand{\contentsname}{\centering 目录}
+\begin{document}
+\tableofcontents
+\thispagestyle{empty} % 禁用页码
+\newpage
+\setcounter{page}{1}
+\end{document}
+\end{lstlisting}
+
+\paragraph{带超链接的目录}\hspace{1pt}
+
+\begin{lstlisting}[style=customlatex, style=linewrap, frame=single]
+\usepackage[CJKbookmarks]{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linktoc=page,
+    linkcolor=blue
+}
+\begin{document}
+\tableofcontents
+\end{document}
+\end{lstlisting}
 
 \subsection{参考文献}
 
@@ -399,13 +450,48 @@ y&=(x+1)(x-1)\\
 \end{aligned}\]
 \end{LTXexample}
 
-%\section{图片}
-%\subsection{位图、矢量图、PDF}
-%长图，图表标题，自定义封面
+\section{图片}
 
+\subsection{位图、矢量图、PDF}
 
-%\subsection{列表}
+\begin{lstlisting}[style=customlatex,style=linewrap,frame=single]
+\usepackage{graphicx}
+\includegraphics[width=1\linewidth]{example.png}
+\includegraphics[width=1\linewidth]{example.svg}
+\includegraphics[width=1\linewidth]{example.pdf}
+\end{lstlisting}
+
+%长图，图表标题
+
 \section{表格\ \tagLaTeX}
+
+\paragraph{列表}\hspace{1pt}
+
+\begin{LTXexample}[style=customlatex]
+\begin{itemize} % 无序列表
+    \item item 1
+    \item item 2
+\end{itemize}
+\end{LTXexample}
+
+\begin{LTXexample}[style=customlatex]
+\begin{enumerate} % 有序列表
+    \item item 1
+    \begin{enumerate} % 嵌套列表
+        \item Nested item 1
+        \item Nested item 2
+    \end{enumerate}
+    \item item 2
+\end{enumerate}
+\end{LTXexample}
+
+\begin{LTXexample}[style=customlatex]
+\begin{description} % 描述列表
+    \item [Apple] item 1
+    \item [Butter] item 2
+    \item [Charlie] item 3
+\end{description}
+\end{LTXexample}
 
 \paragraph{tabular}\hspace{1pt}
 
@@ -581,9 +667,6 @@ showstringspaces=false%
 C:\>
 \end{lstlisting}
 \end{LTXexample}
-
-%\subsection{预设环境}
-
 
 \section{Tikz\ \tagPKG}
 
