@@ -340,6 +340,7 @@ y&=(x+1)(x-1)\\
 
 %\section{图片}
 %\subsection{位图、矢量图、PDF}
+%长图，图表标题，自定义封面
 
 
 %\subsection{列表}
@@ -417,6 +418,27 @@ basewidth=0.5em,
 }
 \lstinputlisting[style=customasm]{x86asm_example.asm}
 \end{LTXexample}
+
+\paragraph{C}\hspace{1pt}
+
+\begin{LTXexample}[varwidth,style=customlatex,style=linewrap]
+\usepackage{listings} % 导言区
+\lstdefinestyle{customc}{
+language=C,%
+keepspaces=true,%
+columns=fixed,%
+basewidth=0.5em,%
+basicstyle=\ttfamily,%
+breaklines=true,%
+commentstyle=\color{Green},%
+keywordstyle=\color{blue}\bfseries,%
+stringstyle=\color{Brown}\bfseries,%
+numberstyle=\ttfamily\color{Gray},%
+showstringspaces=false%
+}
+\lstinputlisting[style=customc]{c_example.c}
+\end{LTXexample}
+    
 
 \paragraph{Python}\hspace{1pt}
 
