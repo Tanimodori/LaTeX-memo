@@ -1,0 +1,66 @@
+% see https://stackoverflow.com/questions/61729168/
+\pgfkeys{
+    /tikz/mux ports/.initial=1
+}
+
+\makeatletter
+\pgfdeclareshape{muxshape}{
+\inheritsavedanchors[from=trapezium] 
+\inheritanchorborder[from=trapezium]
+\inheritbackgroundpath[from=trapezium]
+\foreach \anchor in {bottom left corner, top right corner, top left corner, bottom right corner, bottom side, left side, right side, top side, center, text, mid, base, mid west, base west, mid east, base east, west, east, north, south, north west, north east, south west, south east}{ \inheritanchor[from=trapezium]{\anchor} }
+\savedmacro\numports{%
+    \edef\numports{\pgfkeysvalueof{/tikz/mux ports}}%
+}
+\savedmacro\numselports{%
+    \pgfmathtruncatemacro{\selports}{ceil(log2(\pgfkeysvalueof{/tikz/mux ports}))}
+    \edef\numselports{\selports}%
+}
+\anchor{output}{\csname pgf@anchor@muxshape@top side\endcsname}
+% input ports and select ports
+\pgfutil@g@addto@macro\pgf@sh@s@muxshape{%
+    % input ports
+    \c@pgf@counta\numports\relax%
+    \pgfmathloop%\
+    \ifnum\pgfmathcounter>\c@pgf@counta%
+    \else%
+    \expandafter\xdef\csname pgf@anchor@muxshape@input\space\pgfmathcounter\endcsname{%
+        \noexpand\pgf@sh@@muxshapeanchor{\pgfmathcounter}{\numports}{\csname pgf@anchor@muxshape@bottom left corner\endcsname}{\csname pgf@anchor@muxshape@bottom right corner\endcsname}%
+    }
+    \repeatpgfmathloop%
+    % select ports
+    \c@pgf@counta\numselports\relax
+    \pgfmathloop%\
+    \ifnum\pgfmathcounter>\c@pgf@counta%
+    \else%
+    \expandafter\xdef\csname pgf@anchor@muxshape@select\space\pgfmathcounter\endcsname{%
+        \noexpand\pgf@sh@@muxshapeanchor{\pgfmathcounter}{\numselports}{\csname pgf@anchor@muxshape@bottom right corner\endcsname}{\csname pgf@anchor@muxshape@top right corner\endcsname}%
+    }
+    \repeatpgfmathloop%
+}
+}
+
+\def\pgf@sh@@muxshapeanchor#1#2#3#4{%
+    #3
+    \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+    #4
+    \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+    \pgfmathsetlength{\pgf@x}{\pgf@xa+(\pgf@xb-\pgf@xa)*#1/(#2+1)}%
+    \pgfmathsetlength{\pgf@y}{\pgf@ya+(\pgf@yb-\pgf@ya)*#1/(#2+1)}%
+}
+\makeatother
+
+\tikzset{
+mux/.code={
+    \pgfmathtruncatemacro{\si}{ceil(log2(#1))}%
+    \pgfkeys{/tikz/mux ports=#1}
+    \pgfkeys{
+        /tikz/shape=muxshape,
+        /tikz/draw,
+        /tikz/trapezium stretches,
+        /tikz/shape border rotate = 270,
+        /tikz/minimum height=(\si+1)*0.4cm,
+        /tikz/minimum width=\si*1.6cm
+    }
+}
+}

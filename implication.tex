@@ -1,0 +1,55 @@
+% Implication Table environment
+% #1 cell size
+\makeatletter
+\newcounter{impt@@netcount}%
+\newcounter{impt@@linecount}[impt@@netcount]%
+\newcounter{impt@@columncount}[impt@@linecount]%
+\newenvironment{implication}[1][1.5]{%
+    \stepcounter{impt@@netcount}%
+    \pgfmathsetmacro\cellsize{#1}%
+    \pgfmathsetlengthmacro\cellsizelength{#1 cm}%
+    % \drawcell{label}
+    % draw a cell
+    \newcommand*\impt@defcxy{%
+        \pgfmathsetmacro\cx{\cellsize*\arabic{impt@@columncount}}%
+        \pgfmathsetmacro\cy{-\cellsize*\arabic{impt@@linecount}}%
+    }
+    \newcommand*\impt@putnode[1]{%
+        \node [draw,minimum size=\cellsizelength,align=center] at (\cx,\cy) {##1};%
+        \stepcounter{impt@@columncount}%
+        \ifnum\the\value{impt@@columncount}>\the\value{impt@@linecount}%
+            \stepcounter{impt@@linecount}%
+        \fi%
+    }
+    \newcommand*\impt@putx{%
+        \draw ({\cx-0.3*\cellsize},{\cy-0.3*\cellsize})--++(0.6*\cellsize,0.6*\cellsize);%
+        \draw ({\cx-0.3*\cellsize},{\cy+0.3*\cellsize})--++(0.6*\cellsize,-0.6*\cellsize);
+    }
+    \newcommand*\drawcell@star[1]{%
+        \impt@defcxy%
+        \impt@putnode{##1}%
+    }
+    \newcommand*\drawcell@nostar[1]{%
+        \impt@defcxy%
+        \impt@putnode{##1}%
+        \impt@putx%
+    }
+    \newcommand*\drawcell{%
+        \@ifstar{\drawcell@star}{\drawcell@nostar}%
+    }
+    % \drawlabelv{labels}
+    % draw vertical labels
+    \newcommand*\drawlabelv[1]{%
+        \foreach \label [count=\n from 0] in {##1}{%
+            \node [anchor=east] at ({-\cellsize*0.5},{-\cellsize*\n}) {\label};%
+        }%
+    }
+    % \drawlabelh{labels}
+    % draw horizontal labels
+    \newcommand*\drawlabelh[1]{%
+        \foreach \label [count=\n from 0] in {##1}{%
+            \node [anchor=north] at ({\cellsize*\n},{-\cellsize*(\arabic{impt@@linecount}-0.5)}) {\label};%
+        }%
+    }
+}{}
+\makeatother

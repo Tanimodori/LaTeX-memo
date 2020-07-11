@@ -1,0 +1,45 @@
+\newcounter{pl@@netcount}
+\newcounter{pl@@linecount}[pl@@netcount]
+\NewDocumentEnvironment{paramlines}{O{5} O{1}}{%
+    \stepcounter{pl@@netcount}%
+    \newcommand\plparamdef[1]{%%
+        \expandafter\edef\csname pl@##1\endcsname{\arabic{pl@@linecount}}%%
+        \stepcounter{pl@@linecount}%%
+    }
+    \newcommand\plsetbasex[1]{%%
+        \pgfmathsetmacro{\basex}{\csname pl@##1\endcsname*#2}
+    }
+    \newcommand\plparambase[1]{%%
+        \plparamdef{##1}%%
+        \plsetbasex{##1}%%
+    }
+    \newcommand\pldrawbaselabel[1]{%%
+        \node at (\basex,0.3) {$##1$};%%
+    }
+    \newcommand\plparam[1]{%%
+        \plparambase{##1}%%
+        \pldrawbaselabel{##1}%%
+        \draw (\basex,0) --+ (0,{-(#1)});%%
+    }
+    \newcommand\plparaminv[1]{%%
+        \plparambase{##1’}%%
+        \pldrawbaselabel{##1}%%
+        \node [not gate US,draw,rotate=270] at (\basex,-1) (not##1’){};%%
+        \draw (\basex,0) -- (not##1’.input);%%
+        \draw (not##1’.output) -- (\basex,{-(#1)});%%
+    }
+    \newcommand\plparamboth[1]{%%
+        \plparambase{##1}%%
+        \pldrawbaselabel{##1}%%
+        \draw (\basex,0) --+ (0,{-(#1)});%%
+        \node [not gate US,draw,rotate=270] at ({\basex+#2},-1) (not##1){};%%
+        \draw (\basex,-0.5)-|(not##1.input);%%
+        \draw (not##1.output)--({\basex+#2},{-(#1)});%%
+        \plparamdef{##1’}%%
+    }
+    \newcommand\pllink[2]{%%
+        \plsetbasex{##1}%%
+        \filldraw let \p1=(##2) in (\p1)--(\basex,\y1) circle (2pt);%%
+    }
+}
+{}
