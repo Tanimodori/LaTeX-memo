@@ -1065,6 +1065,27 @@ S_3 -> [loop below, "1 \nodepart{lower} 1"] S_3;
 \end{center}
 \end{LTXexample}
 
+\paragraph{寄存器}\tagMACRO
+
+\texttt{register} 样式的定义和用例如下
+
+\input{register.tex}
+
+\lstinputlisting[frame=single,style=customlatex,style=linewrap]{register.tex}
+
+
+\begin{LTXexample}[varwidth,style=customlatex,style=linewrap]
+\usepackage{tikz} % 导言区
+\tikzset {
+    register/.style={draw,fill=white,shape=register,inner ysep=10pt,minimum width=20pt,minimum height=2cm,align=center}
+}
+\begin{center}
+\begin{tikzpicture}
+\node[register] {ICache\\SRAM};
+\end{tikzpicture}
+\end{center}
+\end{LTXexample}
+
 \subsubsection{程序设计}
 
 \paragraph{流程图}\hspace{1pt}
@@ -1118,7 +1139,7 @@ g ->["否", vskip loop=3cm] b;
     
 \subsubsection{操作系统}
 
-\paragraph{调度结果图}\hspace{1pt}
+\paragraph{调度结果图}\tagMACRO
 
 \texttt{\bfseries dispatchgraph}环境可以用于绘制隐含表，其定义和示例如下：
 

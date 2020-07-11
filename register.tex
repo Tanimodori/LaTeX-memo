@@ -1,0 +1,31 @@
+\makeatletter
+\pgfdeclareshape{register}{
+    \inheritsavedanchors[from=rectangle] 
+    \inheritanchorborder[from=rectangle]
+    \foreach \anchor in {north,north west,north east,center,west,east,mid,
+      mid west,mid east,base,base west,base east,south,south west,south east}{%
+      \inheritanchor[from=rectangle]{\anchor}}%
+    \savedanchor\centerpoint{%
+        \pgf@x=.5\wd\pgfnodeparttextbox%
+        \pgf@y=.5\ht\pgfnodeparttextbox%
+        \advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+    }
+    \backgroundpath{%
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y%
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y%
+        \centerpoint \pgf@xc=\pgf@x \pgf@yc=\pgf@y%
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+        \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+        \pgfpathclose%
+        \pgf@xa=\pgf@xc \advance\pgf@xa by-5pt%
+        \pgf@xb=\pgf@xc \advance\pgf@xb by5pt%
+        \pgf@yc=\pgf@ya \advance\pgf@yc by8.66pt%
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+        \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+        \pgfpathclose%
+    }
+}
+\makeatother
