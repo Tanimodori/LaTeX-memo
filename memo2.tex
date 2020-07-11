@@ -421,7 +421,7 @@ basewidth=0.5em,
 \paragraph{Python}\hspace{1pt}
 
 
-\begin{LTXexample}[varwidth,style=customlatex,style=linewrap]
+\begin{LTXexample}[style=customlatex,style=linewrap]
 \usepackage{listings} % 导言区
 \lstdefinestyle{custompython}{
     language=Python,
@@ -437,6 +437,52 @@ basewidth=0.5em,
 }
 \lstinputlisting[style=custompython]{python_example.py}
 \end{LTXexample}
+
+\paragraph{diff}\hspace{1pt}
+
+\begin{LTXexample}[style=customlatex,style=linewrap]
+\usepackage{xcolor}
+\definecolor{diffstart}{named}{gray}
+\definecolor{diffincl}{named}{Green}
+\definecolor{diffrem}{named}{Red}
+\usepackage{listings} 
+\lstdefinestyle{customdiff}{
+    language=C,
+    keepspaces=true,
+    columns=fixed,
+    basewidth=0.5em,
+    basicstyle=\ttfamily,
+    breaklines=true,
+    commentstyle=\color{Green},
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{Brown}\bfseries,
+    numberstyle=\ttfamily\color{Gray},
+    showstringspaces=false,
+    morecomment=[f][\color{diffstart}]{@@},
+    morecomment=[f][\color{diffincl}]{+\ },
+    morecomment=[f][\color{diffrem}]{-\ },
+    numbers=left,
+    stepnumber=1
+}
+% LISTINGS linenumber hack
+\makeatletter
+\let\orig@lstnumber=\thelstnumber
+\newcommand\lstsetnumber[1]{\gdef\thelstnumber{#1}}
+\newcommand\lstresetnumber{\global\let\thelstnumber=\orig@lstnumber}
+\makeatother
+% 导言区
+\begin{lstlisting}[style=customdiff,firstnumber=12, mathescape=true]
+-   int i;
+-   for (i = 0; i < N; i++)
+-       pthread_create(&tid[i], NULL, thread, &i);$\lstresetnumber\setcounter{lstnumber}{11}$
++   int i, args[N];
++   for (i = 0; i < N; i++) {
++       args[i] = i;
++       pthread_create(&tid[i], NULL, thread, args + i);
++   }
+\end{lstlisting} 
+\end{LTXexample}
+
 
 %\subsection{预设环境}
 
