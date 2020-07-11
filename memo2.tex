@@ -345,6 +345,8 @@ y&=(x+1)(x-1)\\
 %\subsection{列表}
 \section{表格\ \tagLaTeX}
 
+\paragraph{tabular}\hspace{1pt}
+
 \begin{LTXexample}[style=customlatex]
 \begin{center}
 \begin{tabular}{|l|l|l|l|}
@@ -360,6 +362,22 @@ y&=(x+1)(x-1)\\
 7      & 1100  \\\hline
 8      & 1101  \\\hline
 9      & 1110  \\\hline
+\end{tabular}
+\end{center}
+\end{LTXexample}
+
+\paragraph{多行与多列}\tagPKG
+
+\begin{LTXexample}[style=customlatex,style=linewrap]
+\usepackage{multirow} %导言区
+\begin{center}
+\begin{tabular}{c|cc|c}\hline
+    \multirow{2}*{现态}&\multicolumn{2}{|c|}{次态}&\multirow{2}*{当前输出}\\\cline{2-3}
+    ~&$X=0$&$X=1$&~\\\hline
+    a&c&c&1\\
+    c&d&f&0\\
+    d&f&a&1\\
+    f&c&d&0\\\hline
 \end{tabular}
 \end{center}
 \end{LTXexample}
@@ -399,6 +417,27 @@ basewidth=0.5em,
 }
 \lstinputlisting[style=customasm]{x86asm_example.asm}
 \end{LTXexample}
+
+\paragraph{Python}\hspace{1pt}
+
+
+\begin{LTXexample}[varwidth,style=customlatex,style=linewrap]
+\usepackage{listings} % 导言区
+\lstdefinestyle{custompython}{
+    language=Python,
+    keepspaces=true,
+    columns=fixed,
+    basewidth=0.5em,
+    basicstyle=\ttfamily,
+    breaklines=true,
+    commentstyle=\color{Green},
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{Brown}\bfseries,
+    showstringspaces=false
+}
+\lstinputlisting[style=custompython]{python_example.py}
+\end{LTXexample}
+
 %\subsection{预设环境}
 
 
@@ -664,13 +703,12 @@ basewidth=0.5em,
 \begin{LTXexample}[pos=t,style=customlatex,style=linewrap]
 \begin{center}
 \begin{tikzpicture}[>={Stealth[length=2mm]}] 
-% define
 \def\lshift{-0.3}    % yshift of label on axies
 \def\rlimit{8}       % max x can time line reach
 \def\hlevel{0.75}    % yshift of high level signal
 % variables
 \foreach \label [count=\cnt] in {H,...,A} {%
-\node at (-0.5,\cnt-0.5) {$\label$}; \draw (-1,\cnt-1) --++ (\rlimit+1,0);
+\node at (-0.5,\cnt-0.5) {$\label$}; \draw (-1,\cnt-1) --++ (\rlimit+1,0); 
 };
 % axies
 \draw (0,0)--(0,8); \draw[->] (0,0)--(\rlimit+1,0);
