@@ -918,5 +918,31 @@ g ->["否", vskip loop=3cm] b;
 \end{center}
 \end{LTXexample}
     
+\subsubsection{操作系统}
 
+\paragraph{调度结果图}\hspace{1pt}
+
+\texttt{\bfseries dispatchgraph}环境可以用于绘制隐含表，其定义和示例如下：
+
+\input{dispatchgraph.tex}
+
+\lstinputlisting[frame=single,style=customlatex,style=linewrap]{dispatchgraph.tex}
+
+\begin{LTXexample}[pos=t,style=customlatex,style=linewrap]
+\usepackage{tikz} 
+\dgset{
+    height = 2,
+    xscale = 0.25,
+    fill = yellow
+} % 导言区
+\begin{center}
+\begin{dispatchgraph}
+    \drawslice{15}{$P_1$}
+    \drawslice{35}{$P_2$}
+    \drawslice{43}{$P_3$}
+    \drawslice{55}{$P_4$}
+    \drawslice{60}{$P_5$}
+\end{dispatchgraph}
+\end{center}
+\end{LTXexample}
 \end{document}

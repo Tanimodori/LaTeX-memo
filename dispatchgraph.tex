@@ -1,0 +1,33 @@
+\newcommand*\dgset[1]{%
+\pgfkeys{%
+/dispatch graph/.cd,#1%
+}}
+\dgset{
+    xscale/.initial = 1,
+    height/.initial = 1,
+    fill/.initial = yellow!20
+}
+\newenvironment{dispatchgraph}
+{%
+    \newcommand*\dgcalc{%
+        \edef\dgheight{\pgfkeysvalueof{/dispatch graph/height}}%
+        \edef\dgxscale{\pgfkeysvalueof{/dispatch graph/xscale}}%
+    }
+    \newcommand*\drawdgmark[1][0]{%
+        \dgcalc%
+        \draw ({##1 * \dgxscale}, -0.5) -- ({##1 * \dgxscale}, \dgheight);%
+        \node at ({##1 * \dgxscale}, -0.75) {##1};%
+    }
+    \newcommand*\drawslice[2]{%
+        \dgcalc%
+        \filldraw[fill=\pgfkeysvalueof{/dispatch graph/fill}] ({\dgxcur * \dgxscale}, 0) -| ({##1 * \dgxscale}, \dgheight) -| cycle;%
+        \node at ({(\dgxcur + ##1) * \dgxscale * 0.5}, {\dgheight * 0.5}) {##2};%
+        \drawdgmark[##1]
+        \pgfmathsetmacro\dgxcur{##1}%
+    }
+    \begin{tikzpicture}%
+    \pgfmathsetmacro\dgxcur{0}%
+    \drawdgmark[0]%
+}{%
+    \end{tikzpicture}%
+}
