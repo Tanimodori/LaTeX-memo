@@ -106,6 +106,9 @@
 % == 解析器 ==
 \usepackage{xparse}
 
+% == 日期 ==
+\usepackage{datetime}
+
 
 \title{Tanimodori的\ \LaTeX\ 备忘录 \\{\normalsize v 0.1.0}}
 \author{Tanimodori}
@@ -285,9 +288,31 @@ The quick fox jumps over the lazy dog. % 正文
     \textcolor{blue}{blue text}
 \end{LTXexample}
 
-\section{版式与结构}
+\section{版式与结构\ \tagPKG}
+
+\subsection{页边距}
+
+\begin{lstlisting}[style=customlatex, style=linewrap, frame=single] 
+% 引言区
+\usepackage{geometry}
+\geometry{left=1.5cm,right=1.5cm,top=1.5cm,bottom=2cm,a4paper}
+\end{lstlisting}
+
+\subsection{日期}
+
+\begin{LTXexample}[style=customlatex,style=linewrap]
+\usepackage{datetime} % 导言区
+\renewcommand{\dateseparator}{.}
+\yyyymmdddate 
+\today % yyyy.mm.dd
+\newdateformat{cndate}{\THEYEAR 年\THEMONTH 月\THEDAY 日}
+\cndate\today % yyyy年mm月dd日
+\end{LTXexample}
+
 
 \subsection{参考文献}
+
+\paragraph{通常结构}\hspace{1pt}
 
 \begin{lstlisting}[style=customlatex, style=linewrap, frame=single]
 \usepackage{hyperref}
@@ -300,7 +325,23 @@ Foo\parencite{Foo_Bar_2020}
 \end{document}
 \end{lstlisting}
 
-%\subsection{页边距}
+\paragraph{上标方括号参考}\hspace{1pt}
+
+\begin{lstlisting}[style=customlatex, style=linewrap, frame=single] 
+% 引言区
+\DeclareCiteCommand{\supercite}[\mkbibsuperscript]
+  {\iffieldundef{prenote}
+     {}
+     {\BibliographyWarning{Ignoring prenote argument}}%
+   \iffieldundef{postnote}
+     {}
+     {\BibliographyWarning{Ignoring postnote argument}}}
+  {\usebibmacro{citeindex}%
+   \bibopenbracket\usebibmacro{cite}\bibclosebracket}
+  {\supercitedelim}
+  {}
+\end{lstlisting}
+
 %\subsection{日期}
 %\subsection{分割线}
 %\subsection{自定义封面}
