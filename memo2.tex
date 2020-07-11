@@ -285,6 +285,20 @@ The quick fox jumps over the lazy dog. % 正文
     \textcolor{blue}{blue text}
 \end{LTXexample}
 
+\section{版式与结构}
+
+\subsection{参考文献}
+
+\begin{lstlisting}[style=customlatex, style=linewrap, frame=single]
+\usepackage{hyperref}
+\usepackage[hyperref=true,backend=biber,sorting=none,backref=false,doi=false,isbn=false,url=false]{biblatex}
+\addbibresource{example.bib}
+% 引言区
+\begin{document}
+Foo\parencite{Foo_Bar_2020}
+\printbibliography[heading=none]
+\end{document}
+\end{lstlisting}
 
 %\subsection{页边距}
 %\subsection{日期}
