@@ -483,6 +483,26 @@ y&=(x+1)(x-1)\\
 \end{aligned}\]
 \end{LTXexample}
 
+\paragraph{行列式}\hspace{1pt}
+
+\begin{LTXexample}[pos=t,style=customlatex,style=linewrap]
+\[\begin{vmatrix}
+a+x_1 & a    & a    & \cdots & a\\
+-x_1  & x_2  & 0    & \cdots & 0\\
+-x_1  & 0    & x_3  & \cdots & 0\\
+\vdots&\vdots&\vdots& \ddots & \vdots\\
+-x_1  & 0    & 0    & \cdots & x_n\\
+\end{vmatrix}
+\xrightarrow[r_1+(-\frac{a}{x_n})r_n]{\substack{r_1+(-\frac{a}{x_2})r_2\\r_1+(-\frac{a}{x_3})r_3\\\vdots}}
+\begin{vmatrix}
+a+x_1\left(1+\frac{a}{x_2}+\frac{a}{x_3}+\cdots+\frac{a}{x_n}\right) & 0    & 0    & \cdots & 0\\
+-x_1  & x_2  & 0    & \cdots & 0\\
+-x_1  & 0    & x_3  & \cdots & 0\\
+\vdots&\vdots&\vdots& \ddots & \vdots\\
+-x_1  & 0    & 0    & \cdots & x_n\\
+\end{vmatrix}\]
+\end{LTXexample}
+
 \section{图片}
 
 \subsection{嵌入位图、矢量图、PDF}
