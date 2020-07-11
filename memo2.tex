@@ -309,6 +309,12 @@ The quick fox jumps over the lazy dog. % 正文
 \cndate\today % yyyy年mm月dd日
 \end{LTXexample}
 
+\subsection{分割线}
+
+\begin{LTXexample}[style=customlatex,style=linewrap]
+\noindent\rule{\textwidth}{0.4pt}
+\end{LTXexample}
+
 
 \subsection{参考文献}
 
@@ -560,6 +566,21 @@ showstringspaces=false%
 \end{lstlisting} 
 \end{LTXexample}
 
+\paragraph{终端}\hspace{1pt}
+
+\begin{LTXexample}[style=customlatex]
+\usepackage{listings}
+\lstdefinestyle{terminal}{
+    backgroundcolor=\color{black},
+    basicstyle=\ttfamily\color{white},
+    numbers=none,
+    columns=fixed,
+    basewidth=0.5em
+} % 导言区
+\begin{lstlisting}[style=terminal]
+C:\>
+\end{lstlisting}
+\end{LTXexample}
 
 %\subsection{预设环境}
 
