@@ -641,7 +641,7 @@ keepspaces=true,
 columns=fixed,
 basewidth=0.5em,
 }
-\lstinputlisting[style=customasm]{x86asm_example.asm}
+\lstinputlisting[style=customasm]{examples/x86asm_example.asm}
 \end{LTXexample}
 
 \paragraph{C}\hspace{1pt}
@@ -661,7 +661,7 @@ stringstyle=\color{Brown}\bfseries,%
 numberstyle=\ttfamily\color{Gray},%
 showstringspaces=false%
 }
-\lstinputlisting[style=customc]{c_example.c}
+\lstinputlisting[style=customc]{examples/c_example.c}
 \end{LTXexample}
     
 
@@ -684,7 +684,7 @@ showstringspaces=false%
     stringstyle=\color{Brown}\bfseries,
     showstringspaces=false
 }
-\lstinputlisting[style=custompython]{python_example.py}
+\lstinputlisting[style=custompython]{examples/python_example.py}
 \end{LTXexample}
 
 \needspace{20\baselineskip}
@@ -857,7 +857,7 @@ C:\>
 
 % \gatelabel
 
-\input{gatelabel.tex}
+\input{macros/gatelabel.tex}
 
 \texttt{\bfseries\string\gatelabel} 命令可以为门电路标记输入输出，其用法如下：
 
@@ -878,11 +878,11 @@ C:\>
 
 该命令的定义如下：
 
-\lstinputlisting[frame=single,style=customlatex]{gatelabel.tex}
+\lstinputlisting[frame=single,style=customlatex]{macros/gatelabel.tex}
 
 % \gatelink
 
-\input{gatelink.tex}
+\input{macros/gatelink.tex}
 
 \texttt{\bfseries\string\gatelink} 命令可以为连接两个门之间的输入输出，其用法如下
 
@@ -906,7 +906,7 @@ C:\>
     
 该命令的定义如下：
 
-\lstinputlisting[frame=single,style=customlatex]{gatelink.tex}
+\lstinputlisting[frame=single,style=customlatex]{macros/gatelink.tex}
 
 使用以上两个命令的基本门电路用例如下：
 
@@ -933,8 +933,8 @@ C:\>
 \paragraph{MUX} \tagMACRO
 
 % mux & gateselectlabel
-\input{mux.tex}
-\input{gateselectlabel.tex}
+\input{macros/mux.tex}
+\input{macros/gateselectlabel.tex}
 
 \texttt{\bfseries mux} 样式的用法如下
 
@@ -963,20 +963,20 @@ C:\>
 
 \texttt{mux} 样式的定义如下
 
-\lstinputlisting[frame=single,style=customlatex,style=linewrap]{mux.tex}
+\lstinputlisting[frame=single,style=customlatex,style=linewrap]{macros/mux.tex}
 
 \texttt{\string\gateselectlabel} 命令的定义如下
 
-\lstinputlisting[frame=single,style=customlatex,style=linewrap]{gateselectlabel.tex}
+\lstinputlisting[frame=single,style=customlatex,style=linewrap]{macros/gateselectlabel.tex}
 
 
 \paragraph{线网图} \tagMACRO
 
 \texttt{\bfseries paramlines}环境可以用于绘制线网图，其定义和示例如下：
 
-\input{paramlines.tex}
+\input{macros/paramlines.tex}
 
-\lstinputlisting[frame=single,style=customlatex]{paramlines.tex}
+\lstinputlisting[frame=single,style=customlatex]{macros/paramlines.tex}
 
 \begin{LTXexample}[pos=t,style=customlatex,style=linewrap]
 \begin{center}
@@ -1116,9 +1116,9 @@ S_3 -> [loop below, "1 \nodepart{lower} 1"] S_3;
 
 \texttt{\bfseries implicantion}环境可以用于绘制隐含表，其定义和示例如下：
 
-\input{implication.tex}
+\input{macros/implication.tex}
 
-\lstinputlisting[frame=single,style=customlatex,style=linewrap]{implication.tex}
+\lstinputlisting[frame=single,style=customlatex,style=linewrap]{macros/implication.tex}
 
 \begin{LTXexample}[varwidth,style=customlatex,style=linewrap]
 \usepackage{tikz} % 导言区
@@ -1166,9 +1166,9 @@ S_3 -> [loop below, "1 \nodepart{lower} 1"] S_3;
 
 \texttt{register} 样式的定义和用例如下
 
-\input{register.tex}
+\input{macros/register.tex}
 
-\lstinputlisting[frame=single,style=customlatex,style=linewrap]{register.tex}
+\lstinputlisting[frame=single,style=customlatex,style=linewrap]{macros/register.tex}
 
 
 \begin{LTXexample}[varwidth,style=customlatex,style=linewrap]
@@ -1242,9 +1242,9 @@ g ->["否", vskip loop=3cm] b;
 
 \texttt{\bfseries dispatchgraph}环境可以用于绘制隐含表，其定义和示例如下：
 
-\input{dispatchgraph.tex}
+\input{macros/dispatchgraph.tex}
 
-\lstinputlisting[frame=single,style=customlatex,style=linewrap]{dispatchgraph.tex}
+\lstinputlisting[frame=single,style=customlatex,style=linewrap]{macros/dispatchgraph.tex}
 
 \begin{LTXexample}[pos=t,style=customlatex,style=linewrap]
 \usepackage{tikz} 
