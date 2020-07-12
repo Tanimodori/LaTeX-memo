@@ -30,6 +30,8 @@
 \usepackage{multirow}
 % 固定float位置
 \usepackage{float}
+% 断页
+\usepackage{needspace}
 
 % == 字体 ==
 \usepackage{xeCJK,fontspec}
@@ -384,9 +386,13 @@ The quick fox jumps over the lazy dog. % 正文
 \end{document}
 \end{lstlisting}
 
+\needspace{10\baselineskip}
+
 \subsection{参考文献}
 
 \paragraph{通常结构}\hspace{1pt}
+
+\nopagebreak
 
 \begin{lstlisting}[style=customlatex, style=linewrap, frame=single]
 \usepackage{hyperref}
@@ -619,6 +625,8 @@ end
 \end{lstlisting}
 \end{LTXexample}
 
+\needspace{10\baselineskip}
+
 \paragraph{x86汇编}\hspace{1pt}
 
 \begin{LTXexample}[varwidth,style=customlatex,style=linewrap]
@@ -657,6 +665,8 @@ showstringspaces=false%
 \end{LTXexample}
     
 
+\needspace{10\baselineskip}
+
 \paragraph{Python}\hspace{1pt}
 
 
@@ -676,6 +686,8 @@ showstringspaces=false%
 }
 \lstinputlisting[style=custompython]{python_example.py}
 \end{LTXexample}
+
+\needspace{20\baselineskip}
 
 \paragraph{diff}\hspace{1pt}
 
@@ -722,6 +734,8 @@ showstringspaces=false%
 \end{lstlisting} 
 \end{LTXexample}
 
+\needspace{5\baselineskip}
+
 \paragraph{终端}\hspace{1pt}
 
 \begin{LTXexample}[style=customlatex]
@@ -763,6 +777,8 @@ C:\>
 \end{algorithmic}
 % \end{algorithm}
 \end{LTXexample}
+
+\needspace{10\baselineskip}
 
 \section{Tikz\ \tagPKG}
 
@@ -1144,6 +1160,8 @@ S_3 -> [loop below, "1 \nodepart{lower} 1"] S_3;
 \end{center}
 \end{LTXexample}
 
+\needspace{10\baselineskip}
+
 \paragraph{寄存器}\tagMACRO
 
 \texttt{register} 样式的定义和用例如下
@@ -1164,6 +1182,8 @@ S_3 -> [loop below, "1 \nodepart{lower} 1"] S_3;
 \end{tikzpicture}
 \end{center}
 \end{LTXexample}
+
+\needspace{20\baselineskip}
 
 \subsubsection{程序设计}
 
