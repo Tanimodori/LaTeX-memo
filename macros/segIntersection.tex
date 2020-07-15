@@ -1,0 +1,88 @@
+\makeatletter
+\tikzset{%
+    startend/.code={%
+        \def\@Seg@tmp{#1}%
+        \ifx\@Seg@tmp\@nnil%
+            \tikzset{%
+                start angle=\@Seg@StartAngle,%
+                end angle=\@Seg@EndAngle,%
+                radius=\@Seg@radius%
+            }
+        \else%
+            \ifdim\@Seg@StartAngle pt<\@Seg@EndAngle pt%
+                \tikzset{
+                    start angle=\@Seg@StartAngle+360,%
+                    end angle=\@Seg@EndAngle,%
+                    radius=\@Seg@radius%
+                }
+            \else
+                \tikzset{
+                    start angle=\@Seg@StartAngle,%
+                    end angle=\@Seg@EndAngle+360,%
+                    radius=\@Seg@radius%
+                }
+            \fi%
+        \fi%
+    }
+}
+\def\@Seg@radius{1.mm}
+\newcommand*\ComputeIntersection[4]{%
+    \path [name intersections={of = #1 and #2, total=\t}] 
+    \pgfextra{\xdef\@Seg@intcount{\t}};
+    \ifnum\@Seg@intcount>0%
+        \coordinate (SegCenter) at (intersection-1);
+        \path [name path=circle] (SegCenter) circle (\@Seg@radius);
+        \path [name intersections={of = circle and #2, sort by=#2}];
+        \coordinate (#3) at (intersection-1);
+        \coordinate (#4) at (intersection-2);
+        \pgfmathanglebetweenpoints{\pgfpointanchor{SegCenter}{center}}{\pgfpointanchor{#3}{center}}%
+        \let\@Seg@StartAngle\pgfmathresult%
+        \pgfmathanglebetweenpoints{\pgfpointanchor{SegCenter}{center}}{\pgfpointanchor{#4}{center}}%
+        \let\@Seg@EndAngle\pgfmathresult%
+    \fi
+}
+
+\newcommand*\SegRef[3] {
+    \path [name path=#3] (#1) -- (#2);%
+}
+\newcommand*\SegAcrossSingle[5][\@nil]{%
+    \path [name path=overlay] (#2) -- (#4);%
+    \ComputeIntersection{#5}{overlay}{I1}{I2}%
+    \ifnum\@Seg@intcount>0%
+    \draw [#3] (#2) -- (I1) arc [startend={#1}] (I2) -- (#4);%
+    \else
+    \draw [#3] (#2) -- (#4);%
+    \fi
+}
+\newcounter{@Seg@intcounttotal}
+\newcommand*\SegAcrossMultiple[5][\@nil]{%
+    \def\@Seg@tmp{#1}%
+    \path [name path=overlay] (#2) -- (#4);%
+    \gdef\@Seg@StartEnd{}%
+    \setcounter{@Seg@intcounttotal}{1}%
+    % Compute intersections
+    \foreach \line in #5 {%
+        \ComputeIntersection{\line}{overlay}{I1-\the@Seg@intcounttotal}{I2-\the@Seg@intcounttotal}%
+        \ifnum\@Seg@intcount>0%
+            \ifnum\the@Seg@intcounttotal>1%
+                \xdef\@Seg@StartEnd{\@Seg@StartEnd,}%
+            \fi
+            \xdef\@Seg@StartEnd{\@Seg@StartEnd\@Seg@StartAngle/\@Seg@EndAngle}%
+            \stepcounter{@Seg@intcounttotal}%
+        \fi
+    }
+    % Draw path
+    \addtocounter{@Seg@intcounttotal}{-1}%
+    \ifnum\the@Seg@intcounttotal>0%
+        \draw [#3] (#2)%
+        foreach \@Seg@StartAngle/\@Seg@EndAngle [count=\i] in \@Seg@StartEnd {%
+            -- (I1-\i) arc [startend={#1}] (I2-\i)%
+        } -- (#4);%
+    \else%
+        \draw [#3] (#2)-- (#4);%
+    \fi%
+}
+\newcommand*\SegAcross{%
+    \@ifstar{\SegAcrossMultiple}{\SegAcrossSingle}%
+}
+\makeatother

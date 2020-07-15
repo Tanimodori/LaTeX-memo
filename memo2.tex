@@ -59,7 +59,7 @@
 \definecolor{colorPKG}{RGB}{131,80,99}
 \definecolor{colorMACRO}{RGB}{0,172,233}
 \usepackage{tikz}
-\usetikzlibrary{arrows,arrows.meta,calc,graphs,quotes}
+\usetikzlibrary{arrows,arrows.meta,calc,graphs,quotes,intersections}
 \usetikzlibrary{shapes,shapes.gates.logic.US,shapes.gates.logic.IEC}
 \usepackage[american,RPvoltages]{circuitikz}
 % 卡诺图
@@ -117,6 +117,9 @@
 
 % == 日期 ==
 \usepackage{datetime}
+
+% == 补丁 ==
+\input{patches/showexpl.tex}
 
 
 \title{Tanimodori的\ \LaTeX\ 备忘录 \\{\normalsize v 1.0.0}}
@@ -1036,6 +1039,67 @@ C:\>
 \end{center}
 \end{LTXexample}
 
+\paragraph{交错连线}\hspace{1pt}
+
+
+% \gatelink
+
+\input{macros/segIntersection.tex}
+
+\texttt{\bfseries\string\SegAcross} 命令可以绘制绕过连线的线条，其用法如下
+
+
+\begin{lstlisting}[frame=single]
+\SegRef{from}{to}{line}                            % name path
+\SegAcross{from}{options}{to}{line}                % single, normal
+\SegAcross[]{from}{options}{to}{line}              % single, inverted
+\SegAcross*{from}{options}{to}{{comma-sep-lines}}  % multiple, normal
+\SegAcross[]{from}{options}{to}{{comma-sep-lines}} % multiple, inverted
+\end{lstlisting}
+
+使用示例如下。
+
+\begin{LTXexample}[pos=tb,width=\linewidth,style=customlatex,style=linewrap]
+\begin{center}
+\usetikzlibrary{intersections} % 导言区
+\begin{tikzpicture}[>=latex,line cap=rect]
+    \gdef\reflista{}%
+    \gdef\reflistb{}%
+    \foreach \x in {1,...,5} {
+        \coordinate (W-\x) at (-5.5,\x);
+        \coordinate (E-\x) at (\x+0.5,\x);
+        \coordinate (S1-\x) at (-6+\x, 5.5-\x);
+        \coordinate (N1-\x) at (-6+\x, 6);
+        \coordinate (S2-\x) at (\x, 0.5);
+        \coordinate (N2-\x) at (\x, 6);
+        \draw [->] (S1-\x) -- (N1-\x);
+        \SegRef{S1-\x}{N1-\x}{refa-\x}
+        \SegRef{W-\x}{E-\x}{refb-\x}
+        \ifnum\x>1%
+        \xdef\reflista{\reflista,}%
+        \xdef\reflistb{\reflistb,}%
+        \fi%
+        \xdef\reflista{\reflista refa-\x}%
+        \xdef\reflistb{\reflistb refb-\x}%
+    }
+    \foreach \x in {1,...,5} {
+        \ifodd\x%
+        \SegAcross*{W-\x}{->}{E-\x}{\reflista}
+        \SegAcross*{S2-\x}{->}{N2-\x}{\reflistb}
+        \else%
+        \SegAcross*[]{W-\x}{->}{E-\x}{\reflista}
+        \SegAcross*[]{S2-\x}{->}{N2-\x}{\reflistb}
+        \fi
+    }
+\end{tikzpicture}
+\end{center}
+\end{LTXexample}
+
+该命令的定义如下：
+
+\lstinputlisting[frame=single,style=customlatex,style=linewrap]{macros/segIntersection.tex}
+
+\needspace{10\baselineskip}
 
 \paragraph{时序图}\hspace{1pt}
 

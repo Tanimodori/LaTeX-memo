@@ -1,0 +1,30 @@
+\makeatletter
+% option for force page break
+\lst@Key{pagebreak}f[t]{\lstKV@SetIf{#1}\if@SX@pagebreak}
+% if pos is 'tb', if force page break
+\newif\if@SX@pos@tb \@SX@pos@tbfalse
+\newif\if@SX@pos@tb@pagebreak \@SX@pos@tb@pagebreakfalse
+% Defines new position 'tb'
+\newcommand*\SX@put@tb[3]{%
+\SX@ResultArea{\linewidth}{#2}\endgraf%
+\@tempdima=\dimexpr\SX@vsep\vskip\@tempdima
+% Code area dropped
+\global\@SX@pos@tbtrue%
+% Save preset for later rendering
+\xdef\SX@@explpreset@saved{\SX@@explpreset}%
+\if@SX@pagebreak\global\@SX@pos@tb@pagebreaktrue\fi%
+}
+
+% patch \SX@put@code@result for code area
+\g@addto@macro\SX@put@code@result{%
+\if@SX@pos@tb%
+    \if@SX@pos@tb@pagebreak\clearpage\fi%
+    \begingroup%
+    \edef\SX@@explpreset{\SX@@explpreset@saved}%
+    \SX@codeInput%
+    \endgroup%
+\fi%
+\global\@SX@pos@tbfalse
+\@SX@pos@tb@pagebreakfalse
+}
+\makeatother
