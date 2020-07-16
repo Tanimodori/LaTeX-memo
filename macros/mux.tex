@@ -25,7 +25,7 @@
     \ifnum\pgfmathcounter>\c@pgf@counta%
     \else%
     \expandafter\xdef\csname pgf@anchor@muxshape@input\space\pgfmathcounter\endcsname{%
-        \noexpand\pgf@sh@@muxshapeanchor{\pgfmathcounter}{\numports}{\csname pgf@anchor@muxshape@bottom left corner\endcsname}{\csname pgf@anchor@muxshape@bottom right corner\endcsname}%
+        \noexpand\pgf@sh@@muxshapeinputanchor{\pgfmathcounter}%
     }
     \repeatpgfmathloop%
     % select ports
@@ -34,21 +34,31 @@
     \ifnum\pgfmathcounter>\c@pgf@counta%
     \else%
     \expandafter\xdef\csname pgf@anchor@muxshape@select\space\pgfmathcounter\endcsname{%
-        \noexpand\pgf@sh@@muxshapeanchor{\pgfmathcounter}{\numselports}{\csname pgf@anchor@muxshape@bottom right corner\endcsname}{\csname pgf@anchor@muxshape@top right corner\endcsname}%
+        \noexpand\pgf@sh@@muxshapeselectanchor{\pgfmathcounter}%
     }
     \repeatpgfmathloop%
 }
 }
 
-\def\pgf@sh@@muxshapeanchor#1#2#3#4{%
-    #3
+\def\pgf@sh@@muxshapeinputanchor#1{%
+    \installtrapeziumparameters
+    \lowerleftpoint
     \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-    #4
+    \lowerrightpoint
     \pgf@xb=\pgf@x \pgf@yb=\pgf@y
-    \pgfmathsetlength{\pgf@x}{\pgf@xa+(\pgf@xb-\pgf@xa)*#1/(#2+1)}%
-    \pgfmathsetlength{\pgf@y}{\pgf@ya+(\pgf@yb-\pgf@ya)*#1/(#2+1)}%
+    \pgfmathsetlength{\pgf@x}{\pgf@xa+(\pgf@xb-\pgf@xa)*#1/(\numports+1)}%
+    \pgfmathsetlength{\pgf@y}{\pgf@ya+(\pgf@yb-\pgf@ya)*#1/(\numports+1)}%
 }
-\makeatother
+
+\def\pgf@sh@@muxshapeselectanchor#1{%
+    \installtrapeziumparameters
+    \lowerrightpoint
+    \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+    \upperrightpoint
+    \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+    \pgfmathsetlength{\pgf@x}{\pgf@xa+(\pgf@xb-\pgf@xa)*#1/(\numselports+1)}%
+    \pgfmathsetlength{\pgf@y}{\pgf@ya+(\pgf@yb-\pgf@ya)*#1/(\numselports+1)}%
+}
 
 \tikzset{
 mux/.code={

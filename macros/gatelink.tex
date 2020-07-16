@@ -2,3 +2,20 @@
 \draw let \p1=(#2),\p2=(#3),\n1={\x1*0.5+\x2*0.5}
     in (\x1,\y1) -- ($(\n1,\y1)+(#1,0)$) |- (\x2,\y2);
 }
+
+\tikzset{
+    hlink/.code = {
+        \ifx#1\pgfkeysnovalue%
+        \pgfkeysalso{to path={-- ($(\tikztostart)!0.5!(\tikztostart-|\tikztotarget)$) |- (\tikztotarget) \tikztonodes}}
+        \else%
+        \pgfkeysalso{to path={-- ($(\tikztostart)!0.5!(\tikztostart-|\tikztotarget)+(#1,0)$) |- (\tikztotarget) \tikztonodes}}
+        \fi%
+    },
+    vlink/.code = {
+        \ifx#1\pgfkeysnovalue%
+        \pgfkeysalso{to path={-- ($(\tikztostart)!0.5!(\tikztostart|-\tikztotarget)$) -| (\tikztotarget) \tikztonodes}}
+        \else%
+        \pgfkeysalso{to path={-- ($(\tikztostart)!0.5!(\tikztostart|-\tikztotarget)+(0,#1)$) -| (\tikztotarget) \tikztonodes}}
+        \fi%
+    }
+}

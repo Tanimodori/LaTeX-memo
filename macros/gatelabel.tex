@@ -9,3 +9,45 @@
 }
 \newcommand*{\gatelabel}{\@ifstar{\gatelabel@starred}{\gatelabel@unstarred}}
 \makeatother
+
+% \fixname from https://tex.stackexchange.com/a/213815/220363
+\tikzset{
+    keep name/.style={prefix after command={\pgfextra{\let\fixname\tikzlastnode}}},
+    pics/input labels/.initial={},
+    pics/output label/.initial={},
+    pics/select labels/.initial={},
+    with input labels/.pic={
+        \edef\ilabels{\pgfkeysvalueof{/tikz/pics/input labels}}%
+        \foreach \ilabel [count=\li] in \ilabels {
+            \draw (\fixname.input \li) ++ (-0.5,0) node (\fixname_i_\li) [left] {\ilabel} -- (\fixname.input \li);
+        }
+    },
+    with input labels/.style={
+        keep name,
+        append after command = {
+            pic {input labels={#1}, with input labels}
+        }
+    },
+    with output label/.pic={
+        \edef\olabel{\pgfkeysvalueof{/tikz/pics/output label}}%
+        \draw (\fixname.output) -- ++(0.5,0) node (\fixname_o) [right] {\olabel};
+    },
+    with output label/.style={
+        keep name,
+        append after command = {
+            pic {output label={#1}, with output label}
+        }
+    },
+    with select labels/.pic={
+        \edef\slabels{\pgfkeysvalueof{/tikz/pics/select labels}}%
+        \foreach \slabel [count=\li] in \slabels {%
+            \draw let \p1=(\fixname.bottom right corner),\p2=(\fixname.select \li) in (\p2) -- (\x2,\y1-10) node[below] {\slabel};%
+        };
+    },
+    with select labels/.style={
+        keep name,
+        append after command = {
+            pic {select labels={#1}, with select labels}
+        }
+    }
+}
