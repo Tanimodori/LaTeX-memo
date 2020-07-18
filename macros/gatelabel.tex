@@ -1,15 +1,3 @@
-\makeatletter
-\newcommand*{\gatelabel@unstarred}[2]{
-\foreach \label [count=\li] in #2 {
-    \draw (#1.input \li) ++ (-0.5,0) node (#1_i_\li) [left] {\label} -- (#1.input \li);
-}
-}
-\newcommand*{\gatelabel@starred}[2]{
-    \draw (#1.output) -- ++(0.5,0) node (#1_o) [right] {#2};
-}
-\newcommand*{\gatelabel}{\@ifstar{\gatelabel@starred}{\gatelabel@unstarred}}
-\makeatother
-
 % \fixname from https://tex.stackexchange.com/a/213815/220363
 \tikzset{
     keep name/.style={prefix after command={\pgfextra{\let\fixname\tikzlastnode}}},

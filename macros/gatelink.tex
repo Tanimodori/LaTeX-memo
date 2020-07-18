@@ -1,8 +1,3 @@
-\newcommand*\gatelink[3][0]{
-\draw let \p1=(#2),\p2=(#3),\n1={\x1*0.5+\x2*0.5}
-    in (\x1,\y1) -- ($(\n1,\y1)+(#1,0)$) |- (\x2,\y2);
-}
-
 \tikzset{
     hlink/.code = {
         \ifx#1\pgfkeysnovalue%

@@ -1,5 +1,0 @@
-\newcommand*\gateselectlabel[2]{%
-\foreach \label [count=\ni] in #2 {%
-    \draw let \p1=(#1.bottom right corner),\p2=(#1.select \ni) in (\p2) -- (\x2,\y1-10) node[below] {\label};%
-};
-}

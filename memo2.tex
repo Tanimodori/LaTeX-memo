@@ -862,54 +862,59 @@ C:\>
 
 \input{macros/gatelabel.tex}
 
-\texttt{\bfseries\string\gatelabel} 命令可以为门电路标记输入输出，其用法如下：
+\texttt{\bfseries with input labels}、\texttt{\bfseries with output label}、\texttt{\bfseries with select labels} 选项可以为门电路标记输入标签、输出标签和选择标签，其用法如下：
 
 \begin{lstlisting}[escapechar=\%, frame=single, columns=flexible]
-\gatelabel{%\textit{gate-name}%}{{%\textit{comma-seperated-list}%}}
-\gatelabel*{%\textit{gate-name}%}{%\textit{output-label}%}
+with input labels={%\textit{comma-seperated-list}%}
+with output label=%\textit{output-label}%
+with select labels={%\textit{comma-seperated-list}%}
 \end{lstlisting}
 
 注意：该命令只能处理输入在左侧，输出在右侧的门。使用示例如下。
 
 \begin{LTXexample}[varwidth, style=customlatex, style=linewrap]
 \begin{tikzpicture}
-\node (or) [or gate US, draw, logic gate inputs=nnn,scale=2] {};
-\gatelabel{or}{{$A$,$B$,$C$}}
-\gatelabel*{or}{$F$}
+\node (or) [
+    draw, or gate US, scale=2,
+    logic gate inputs=nnn,
+    with input labels={$A$,$B$,$C$},
+    with output label=$F$
+] {};
 \end{tikzpicture}
 \end{LTXexample}
 
 该命令的定义如下：
 
-\lstinputlisting[frame=single,style=customlatex]{macros/gatelabel.tex}
+\lstinputlisting[frame=single,style=customlatex,style=linewrap]{macros/gatelabel.tex}
 
 % \gatelink
 
 \input{macros/gatelink.tex}
 
-\texttt{\bfseries\string\gatelink} 命令可以为连接两个门之间的输入输出，其用法如下
+\texttt{\bfseries hlink}、\texttt{\bfseries vlink} 选项可以为连接两个门之间的输入输出，其用法如下
 
 \begin{lstlisting}[escapechar=\%, frame=single, columns=flexible]
-\gatelink[%\textit{offset}%]{%\textit{anchor1}%}{%\textit{anchor2}%}
+\path (%\textit{anchor1}%) to [hlink] (%\textit{anchor2}%);
+\path (%\textit{anchor1}%) to [hlink=%\textit{offset}%] (%\textit{anchor2}%);
+\path (%\textit{anchor1}%) to [vlink] (%\textit{anchor2}%);
+\path (%\textit{anchor1}%) to [vlink=%\textit{offset}%] (%\textit{anchor2}%);
 \end{lstlisting}
-
-注意：该命令只能处理输入在左侧，输出在右侧的门。使用示例如下。
 
 \begin{LTXexample}[varwidth, style=customlatex, style=linewrap]
 \begin{tikzpicture}[every node/.style={or gate US, draw}]
-\draw[help lines, step=0.5cm] (0,0) grid (4,2);
+\draw [help lines, step=0.5cm] (0,0) grid (4,2);
 \node (or1) at (0,1) {};
 \node (or2) at (2,2) {};
 \node (or3) at (4,0) {};
-\gatelink{or1.output}{or2.input 1}
-\gatelink[0.5]{or2.output}{or3.input 1}
-\gatelink[-0.5]{or1.output}{or3.input 2}
+\draw (or1.output) to [hlink]      (or2.input 1);
+\draw (or2.output) to [hlink=0.5]  (or3.input 1);
+\draw (or1.output) to [hlink=-0.5] (or3.input 2);
 \end{tikzpicture}
 \end{LTXexample}
     
 该命令的定义如下：
 
-\lstinputlisting[frame=single,style=customlatex]{macros/gatelink.tex}
+\lstinputlisting[frame=single,style=customlatex,style=linewrap]{macros/gatelink.tex}
 
 使用以上两个命令的基本门电路用例如下：
 
@@ -919,14 +924,20 @@ C:\>
 % 导言区
 \begin{center}
 \begin{tikzpicture}[>=latex]
-\node (or) [or gate US, draw, logic gate inputs=nnnn,scale=2] at (4,-5) {};
-\gatelabel*{or}{$F$}
+\node (or) [
+    or gate US, draw, scale=2,
+    logic gate inputs=nnnn,
+    with output label=$F$
+] at (4,-5) {};
 \foreach \i/\list/\offset in 
 {1/{$A$,$B$,$C'$}/0.5,2/{$A$,$C$,$D$}/-0.5,3/{$A'$,$B'$,$C$}/-0.5,4/{$A'$,$C'$,$D$}/0.5}
 {
-\node (and\i) [and gate US, draw, logic gate inputs=nnn, scale=2] at (0,-\i*2) {};
-\gatelabel{and\i}{\list}
-\gatelink[\offset]{and\i.output}{or.input \i}
+\node (and\i) [
+    and gate US, draw, scale=2, 
+    logic gate inputs=nnn,
+    with input labels=\list
+] at (0,-\i*2) {};
+\draw (and\i.output) to [hlink=\offset] (or.input \i);
 }
 \end{tikzpicture}
 \end{center}
@@ -935,9 +946,8 @@ C:\>
 
 \paragraph{MUX} \tagMACRO
 
-% mux & gateselectlabel
+% mux
 \input{macros/mux.tex}
-\input{macros/gateselectlabel.tex}
 
 \texttt{\bfseries mux} 样式的用法如下
 
@@ -945,21 +955,17 @@ C:\>
 \node [mux=%\textit{in-ports-numbers}%] {};
 \end{lstlisting}
 
-\texttt{\bfseries\string\gateselectlabel} 命令为门电路标记选择端口，其用法如下：
-
-\begin{lstlisting}[escapechar=\%, frame=single, columns=flexible]
-\gateselectlabel{%\textit{gate-name}%}{{%\textit{comma-seperated-list}%}}
-\end{lstlisting}
-
 示例代码如下
 
 \begin{LTXexample}[pos=t,style=customlatex,style=linewrap]
 \begin{center}
 \begin{tikzpicture}
-\node (mux) [mux=8] {};
-\gatelabel{mux}{{$A$,$B$,$C$,$D$,$E$,$F$,$G$,$H$}}
-\gatelabel*{mux}{$X$}
-\gateselectlabel{mux}{{$P$,$Q$,$R$}}
+\node (mux) [
+    mux=8, 
+    with input labels={$A$,$B$,$C$,$D$,$E$,$F$,$G$,$H$},
+    with output label=$X$,
+    with select labels={$P$,$Q$,$R$}
+] {};
 \end{tikzpicture}
 \end{center}
 \end{LTXexample}
@@ -967,11 +973,6 @@ C:\>
 \texttt{mux} 样式的定义如下
 
 \lstinputlisting[frame=single,style=customlatex,style=linewrap]{macros/mux.tex}
-
-\texttt{\string\gateselectlabel} 命令的定义如下
-
-\lstinputlisting[frame=single,style=customlatex,style=linewrap]{macros/gateselectlabel.tex}
-
 
 \paragraph{线网图} \tagMACRO
 
@@ -987,18 +988,21 @@ C:\>
 \begin{paramlines}[11][0.6]
 \plparaminv{A}\plparam{B}\plparamboth{C}\plparaminv{D}
 \foreach \x in {1,...,5} {\node [or gate US,draw,scale=2] at (4,-\x*2) (or\x) {};}
-\node (and) [and gate US, draw, anchor=input 3, logic gate inputs=nnnnn, scale=2] at ($(or3.output)+(3,0)$) {};
+\node (and) [
+    and gate US, draw, scale=2,
+    anchor=input 3, logic gate inputs=nnnnn,
+    with output label=$H$
+] at ($(or3.output)+(3,0)$) {};
 \pllink{A’}{or1.input 1} \pllink{C}  {or1.input 2}
 \pllink{C}  {or2.input 1} \pllink{D’}{or2.input 2}
 \pllink{B}  {or3.input 1} \pllink{C’}{or3.input 2}
 \pllink{B}  {or4.input 1} \pllink{D’}{or4.input 2}
 \pllink{A’}{or5.input 1} \pllink{B}  {or5.input 2}
-\gatelink[1] {or1.output}{and.input 1}
-\gatelink    {or2.output}{and.input 2}
-\gatelink[-1]{or3.output}{and.input 3}
-\gatelink    {or4.output}{and.input 4}
-\gatelink[1] {or5.output}{and.input 5}
-\gatelabel*{and}{$H$}
+\draw (or1.output) to [hlink=1]  (and.input 1);
+\draw (or2.output) to [hlink]    (and.input 2);
+\draw (or3.output) to [hlink=-1] (and.input 3);
+\draw (or4.output) to [hlink]    (and.input 4);
+\draw (or5.output) to [hlink=1]  (and.input 5);
 \end{paramlines}
 \end{tikzpicture}
 \end{center}
@@ -1023,13 +1027,12 @@ C:\>
 \def\andbasex{5}
 \def\orbasex{5}
 \node [nand gate US,logic gate inputs=nnn,draw,scale=2] at (\orbasex,-3) (nand1) {};
-\node [and gate US,draw,scale=2] at (\andbasex,-5) (and1) {};
+\node [and gate US,draw,scale=2, with output label=$Z$] at (\andbasex,-5) (and1) {};
 \pllink{X}{and1.input 1}
 \pllink{Q1}{and1.input 2}
 \pllink{X’}{nand1.input 1}
 \pllink{Q1}{nand1.input 2}
 \pllink{Q0}{nand1.input 3}
-\gatelabel*{and1}{$Z$}
 \plsetbasex{X}
 \draw (nand1.output) --++(0.5,0) |- (1,2.5) -- (1,2);
 \draw (\basex,-4) --++(5.5,0) |- (0,3) -- (0,2);
@@ -1038,6 +1041,8 @@ C:\>
 \end{tikzpicture}
 \end{center}
 \end{LTXexample}
+
+\needspace{5\baselineskip}
 
 \paragraph{交错连线}\hspace{1pt}
 
@@ -1049,7 +1054,7 @@ C:\>
 \texttt{\bfseries\string\SegAcross} 命令可以绘制绕过连线的线条，其用法如下
 
 
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}[frame=single, columns=flexible]
 \SegRef{from}{to}{line}                            % name path
 \SegAcross{from}{options}{to}{line}                % single, normal
 \SegAcross[]{from}{options}{to}{line}              % single, inverted
