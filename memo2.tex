@@ -96,7 +96,6 @@
     keepspaces=true,
     columns=fixed,
     basewidth=0.5em,
-    morekeywords={document, titlepage}
 }
 \lstdefinestyle{linewrap}{
     basicstyle=\footnotesize\ttfamily,
@@ -574,8 +573,7 @@ a+x_1\left(1+\frac{a}{x_2}+\frac{a}{x_3}+\cdots+\frac{a}{x_n}\right) & 0    & 0 
 
 \paragraph{tabular}\hspace{1pt}
 
-\begin{LTXexample}[style=customlatex]
-\begin{center}
+\begin{LTXexample}[style=customlatex,preset=\centering]
 \begin{tabular}{|l|l|l|l|}
 \hline
 十进制数& 4-3-2-1编码 \\\hline
@@ -590,14 +588,12 @@ a+x_1\left(1+\frac{a}{x_2}+\frac{a}{x_3}+\cdots+\frac{a}{x_n}\right) & 0    & 0 
 8      & 1101  \\\hline
 9      & 1110  \\\hline
 \end{tabular}
-\end{center}
 \end{LTXexample}
 
 \paragraph{多行与多列}\tagPKG
 
-\begin{LTXexample}[style=customlatex,style=linewrap]
+\begin{LTXexample}[style=customlatex,style=linewrap,preset=\centering]
 \usepackage{multirow} %导言区
-\begin{center}
 \begin{tabular}{c|cc|c}\hline
     \multirow{2}*{现态}&\multicolumn{2}{|c|}{次态}&\multirow{2}*{当前输出}\\\cline{2-3}
     ~&$X=0$&$X=1$&~\\\hline
@@ -606,7 +602,6 @@ a+x_1\left(1+\frac{a}{x_2}+\frac{a}{x_3}+\cdots+\frac{a}{x_n}\right) & 0    & 0 
     d&f&a&1\\
     f&c&d&0\\\hline
 \end{tabular}
-\end{center}
 \end{LTXexample}
 
 \section{代码\ \tagPKG}
@@ -789,8 +784,7 @@ C:\>
 
 \paragraph{\texttt{\backslash foreach}}\hspace{1pt}
 
-\begin{LTXexample}[pos=t, style=customlatex]
-\begin{center}
+\begin{LTXexample}[pos=t, style=customlatex,preset=\centering]
 \begin{tikzpicture}[>=latex] 
 \foreach \x in {1, 2, 3, 4} {
     \pgfmathtruncatemacro{\xminus}{\x-1}
@@ -814,7 +808,6 @@ C:\>
 (ha1-b) to[short,i_<=${B_0=1}$] ++ (-1.5,0)
 (ha4-x) to[short,i^>=${X_3}$] ++ (1,0);
 \end{tikzpicture}
-\end{center}
 \end{LTXexample}
 
 \subsection{内容示例}
@@ -823,12 +816,11 @@ C:\>
 
 \paragraph{开关电路}\hspace{1pt}
 
-\begin{LTXexample}[pos=t, style=customlatex]
+\begin{LTXexample}[pos=t, style=customlatex,preset=\centering]
 \usepackage{tikz}
 \usetikzlibrary{arrows,shapes}
 \usepackage[american,RPvoltages]{circuitikz}
 % 导言区
-\begin{center}
 \begin{circuitikz}[>=latex] 
 \draw
 (0,0) to [short,o-*] (1,0) coordinate (left_in) --++ (0,1) 
@@ -847,7 +839,6 @@ C:\>
 --++ (1,0) to[nos,->,l=$Z$] ++ (0.5,0) --++ (1,0) 
 -- (right_end);
 \end{circuitikz}
-\end{center}
 \end{LTXexample}
 
 \paragraph{门电路} \tagMACRO
@@ -918,11 +909,10 @@ with select labels={%\textit{comma-seperated-list}%}
 
 使用以上两个命令的基本门电路用例如下：
 
-\begin{LTXexample}[pos=t, style=customlatex, style=linewrap]
+\begin{LTXexample}[pos=t, style=customlatex, style=linewrap, preset=\centering]
 \usepackage{tikz}
 \usetikzlibrary{arrows,shapes,shapes.gates.logic.US,shapes.gates.logic.IEC}
 % 导言区
-\begin{center}
 \begin{tikzpicture}[>=latex]
 \node (or) [
     or gate US, draw, scale=2,
@@ -940,7 +930,6 @@ with select labels={%\textit{comma-seperated-list}%}
 \draw (and\i.output) to [hlink=\offset] (or.input \i);
 }
 \end{tikzpicture}
-\end{center}
 \end{LTXexample}
 
 
@@ -1009,8 +998,7 @@ with select labels={%\textit{comma-seperated-list}%}
 \end{LTXexample}
 
 
-\begin{LTXexample}[pos=t,style=customlatex,style=linewrap]
-\begin{center}
+\begin{LTXexample}[pos=t,style=customlatex,style=linewrap,preset=\centering]
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,shapes} % 导言区
 \begin{tikzpicture}
@@ -1039,7 +1027,6 @@ with select labels={%\textit{comma-seperated-list}%}
 \fill (\basex,-4) circle (2pt);
 \end{paramlines}
 \end{tikzpicture}
-\end{center}
 \end{LTXexample}
 
 \needspace{5\baselineskip}
@@ -1064,8 +1051,7 @@ with select labels={%\textit{comma-seperated-list}%}
 
 使用示例如下。
 
-\begin{LTXexample}[pos=tb,width=\linewidth,style=customlatex,style=linewrap]
-\begin{center}
+\begin{LTXexample}[pos=tb,width=\linewidth,style=customlatex,style=linewrap,preset=\centering]
 \usetikzlibrary{intersections} % 导言区
 \begin{tikzpicture}[>=latex,line cap=rect]
     \gdef\reflista{}%
@@ -1097,7 +1083,6 @@ with select labels={%\textit{comma-seperated-list}%}
         \fi
     }
 \end{tikzpicture}
-\end{center}
 \end{LTXexample}
 
 该命令的定义如下：
@@ -1108,8 +1093,7 @@ with select labels={%\textit{comma-seperated-list}%}
 
 \paragraph{时序图}\hspace{1pt}
 
-\begin{LTXexample}[pos=t,style=customlatex,style=linewrap]
-\begin{center}
+\begin{LTXexample}[pos=t,style=customlatex,style=linewrap,preset=\centering]
 \begin{tikzpicture}[>={Stealth[length=2mm]}] 
 \def\lshift{-0.3}    % yshift of label on axies
 \def\rlimit{8}       % max x can time line reach
@@ -1139,15 +1123,13 @@ with select labels={%\textit{comma-seperated-list}%}
 \draw (0,0)--++(6,0)|-++(1,\hlevel)|-(\rlimit,0); % H
 \end{scope}
 \end{tikzpicture}
-\end{center}
 \end{LTXexample}
 
 
 \paragraph{卡诺图}\hspace{1pt}
 
-\begin{LTXexample}[style=customlatex]
+\begin{LTXexample}[style=customlatex,preset=\centering]
 \usepackage{karnaugh-map} % 导言区
-\begin{center}
 \begin{karnaugh-map}[4][4][1][$AB$][$CD$]
     \minterms{0,4,5,7,8,10,11,12,14}
     \terms{1}{$X$}
@@ -1155,17 +1137,15 @@ with select labels={%\textit{comma-seperated-list}%}
     \implicant{5}{7}
     \implicant{11}{10}
     \implicantedge{12}{8}{14}{10}
-    \end{karnaugh-map}
-\end{center}
+\end{karnaugh-map}
 \end{LTXexample}
 
 \paragraph{自动机}\hspace{1pt}
 
 
-\begin{LTXexample}[pos=t,style=customlatex,style=linewrap]
+\begin{LTXexample}[pos=t,style=customlatex,style=linewrap,preset=\centering]
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,calc,graphs,positioning,quotes,shapes} % 导言区
-\begin{center}
 \begin{tikzpicture}[>={Stealth[length=2mm]}] 
 \graph[math nodes, nodes={draw,circle}, edge quotes={auto,circle solidus,scale=0.8}, grow right=3cm, branch down=3cm] {
 S_0 <- [bend left, "0 \nodepart{lower} 0"] S_1;
@@ -1177,7 +1157,6 @@ S_1 -> [bend left, "1 \nodepart{lower} 0"] S_3;
 S_3 -> [loop below, "1 \nodepart{lower} 1"] S_3;
 };
 \end{tikzpicture}
-\end{center}
 \end{LTXexample}
 
 
@@ -1189,9 +1168,8 @@ S_3 -> [loop below, "1 \nodepart{lower} 1"] S_3;
 
 \lstinputlisting[frame=single,style=customlatex,style=linewrap]{macros/implication.tex}
 
-\begin{LTXexample}[varwidth,style=customlatex,style=linewrap]
+\begin{LTXexample}[varwidth,style=customlatex,style=linewrap,preset=\centering]
 \usepackage{tikz} % 导言区
-\begin{center}
 \begin{tikzpicture}
 \begin{implication}[1.35]
 %S_1
@@ -1226,7 +1204,6 @@ S_3 -> [loop below, "1 \nodepart{lower} 1"] S_3;
 \drawlabelh{$a$,$b$,$c$,$d$,$e$,$f$}
 \end{implication}
 \end{tikzpicture}
-\end{center}
 \end{LTXexample}
 
 \needspace{10\baselineskip}
@@ -1240,16 +1217,14 @@ S_3 -> [loop below, "1 \nodepart{lower} 1"] S_3;
 \lstinputlisting[frame=single,style=customlatex,style=linewrap]{macros/register.tex}
 
 
-\begin{LTXexample}[varwidth,style=customlatex,style=linewrap]
+\begin{LTXexample}[varwidth,style=customlatex,style=linewrap,preset=\centering]
 \usepackage{tikz} % 导言区
 \tikzset {
     register/.style={draw,fill=white,shape=register,inner ysep=10pt,minimum width=20pt,minimum height=2cm,align=center}
 }
-\begin{center}
 \begin{tikzpicture}
 \node[register] {ICache\\SRAM};
 \end{tikzpicture}
-\end{center}
 \end{LTXexample}
 
 \needspace{20\baselineskip}
@@ -1258,12 +1233,11 @@ S_3 -> [loop below, "1 \nodepart{lower} 1"] S_3;
 
 \paragraph{流程图}\hspace{1pt}
 
-\begin{LTXexample}[varwidth,style=customlatex,style=linewrap]
+\begin{LTXexample}[varwidth,style=customlatex,style=linewrap,preset=\centering]
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,graphs,quotes}
 \usepackage{flowchart}
 % 导言区
-\begin{center}
 \begin{tikzpicture}[
 >={Stealth[length=2mm]},
 io/.style = {draw, trapezium, trapezium left angle=60, trapezium right angle=120},
@@ -1302,7 +1276,6 @@ e ->["是", vskip loop=-3cm] g;
 g ->["否", vskip loop=3cm] b;
 };
 \end{tikzpicture}
-\end{center}
 \end{LTXexample}
     
 \subsubsection{操作系统}
@@ -1315,14 +1288,13 @@ g ->["否", vskip loop=3cm] b;
 
 \lstinputlisting[frame=single,style=customlatex,style=linewrap]{macros/dispatchgraph.tex}
 
-\begin{LTXexample}[pos=t,style=customlatex,style=linewrap]
+\begin{LTXexample}[pos=t,style=customlatex,style=linewrap,preset=\centering]
 \usepackage{tikz} 
 \dgset{
     height = 2,
     xscale = 0.25,
     fill = yellow
 } % 导言区
-\begin{center}
 \begin{dispatchgraph}
     \drawslice{15}{$P_1$}
     \drawslice{35}{$P_2$}
@@ -1330,6 +1302,5 @@ g ->["否", vskip loop=3cm] b;
     \drawslice{55}{$P_4$}
     \drawslice{60}{$P_5$}
 \end{dispatchgraph}
-\end{center}
 \end{LTXexample}
 \end{document}
