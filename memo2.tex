@@ -124,6 +124,7 @@
 
 % == 日期 ==
 \usepackage{datetime}
+\newdateformat{doccndate}{\THEYEAR 年\THEMONTH 月\THEDAY 日}
 
 % == 补丁 ==
 \input{patches/showexpl.tex}
@@ -131,7 +132,7 @@
 
 \title{Tanimodori的\ \LaTeX\ 备忘录 \\{\normalsize v 1.0.0}}
 \author{Tanimodori}
-\date{2020年7月10日} 
+\date{\doccndate\today} 
 
 \begin{document}
 \maketitle
@@ -445,11 +446,6 @@ Foo\parencite{Foo_Bar_2020}
   {}
 \end{lstlisting}
 
-%\subsection{日期}
-%\subsection{分割线}
-%\subsection{自定义封面}
-%\subsection{目录}
-%\subsubsection{带超链接的目录}
 %\subsection{附录}
 
 \section{数学模式\ \tagTeX\tagLaTeX}
